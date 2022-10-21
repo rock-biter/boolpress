@@ -42,14 +42,14 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-12">
+    <ul class="col-12">
       @if($post->category)
         @foreach($post->category->posts as $relatedPost)
 
-          <p>{{ $relatedPost->title }}</p>
+          <li>{{ $relatedPost->title }}</li>
         @endforeach
       @endif
-    </div>
+    </ul>
   </div>
 </div>
 
