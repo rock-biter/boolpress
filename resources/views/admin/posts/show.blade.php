@@ -7,6 +7,11 @@
     <div class="col-8">
       <h1>{{ $post->title }}</h1>
       <p>{{ $post->slug }}</p>
+
+      @if($post->category)
+      <p><strong>Categoria:</strong> {{ $post->category->name }}</p>
+      @endif
+
       <ul class="d-flex gap-2">
         <li>{{ $post->created_at }}</li>
         <li>{{ $post->updated_at }}</li>
@@ -31,6 +36,19 @@
       <p>
         {!! $post->content !!}
       </p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      @if($post->category)
+        @foreach($post->category->posts as $relatedPost)
+
+          <p>{{ $relatedPost->title }}</p>
+        @endforeach
+      @endif
     </div>
   </div>
 </div>
