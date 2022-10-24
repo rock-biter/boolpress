@@ -37,7 +37,7 @@
           <select name="category_id" class="custom-select @error('category_id') is-invalid @enderror" >
             <option value="">-- nessuna --</option>
             @foreach($categories as $category)
-              <option @if(old('category_id',$post->category_id) === $category->id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
+              <option @if(old('category_id',$post->category_id) == $category->id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach
           </select>
           <small id="helpCategory" class="form-text text-muted">Seleziona la categoria</small>
@@ -46,6 +46,19 @@
               {{ $message }}
             </div>
           @enderror
+        </div>
+
+        <div class="form-group">
+          <label class="d-block" for="category">Tag:</label>
+
+          
+          @foreach($tags as $key => $tag)
+            <div class="form-check form-check-inline">
+              <input  class="form-check-input" name="tags[]" @if( in_array($tag->id, old('tags', $post->tags->pluck('id')->all()) ) ) checked @endif type="checkbox" id="tag-{{$tag->id}}" value="{{ $tag->id }}">
+              <label class="form-check-label" for="tag-{{$tag->id}}">{{ $tag->name }}</label>
+            </div>
+          @endforeach
+
         </div>
 
         <div class="form-group">

@@ -12,9 +12,22 @@
       <p><strong>Categoria:</strong> {{ $post->category->name }}</p>
       @endif
 
-      <ul class="d-flex gap-2">
-        <li>{{ $post->created_at }}</li>
-        <li>{{ $post->updated_at }}</li>
+      <div>
+        <p><strong>Tags:</strong></p>
+        <ul>
+          @forelse($post->tags as $tag)
+            <li>{{ $tag->name }}</li>
+          @empty
+            <li>nessun tag</li>
+          @endforelse
+        </ul>
+      </div>
+      
+
+
+      <ul class="gap-2">
+        <li>created at: {{ $post->created_at }}</li>
+        <li>updated at: {{ $post->updated_at }}</li>
       </ul>
     </div>
     <div class="col-4 text-left d-flex justify-content-end align-items-center">
@@ -44,9 +57,12 @@
   <div class="row">
     <ul class="col-12">
       @if($post->category)
-        @foreach($post->category->posts as $relatedPost)
-
-          <li>{{ $relatedPost->title }}</li>
+        @foreach($post->category->posts()->where('id','!=',$post->id)->get() as $relatedPost)
+          <li>
+            <a href="{{ route('admin.posts.show',$relatedPost) }}">
+              {{ $relatedPost->title }}
+            </a>
+          </li>
         @endforeach
       @endif
     </ul>
