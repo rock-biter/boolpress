@@ -47,7 +47,7 @@ class PostController extends Controller
             'title' => 'required|max:255|min:5',
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
-            'tags.*' => 'exists:tags,id'
+            'tags' => 'exists:tags,id'
         ]);
 
         $params['slug'] = Post::getUniqueSlugFrom($params['title']);
@@ -102,7 +102,7 @@ class PostController extends Controller
             'title' => 'required|max:255|min:5',
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
-            'tags.*' => 'exists:tags,id'
+            'tags' => 'exists:tags,id'
         ]);
 
         if ($params['title'] !== $post->title) {
