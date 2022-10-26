@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -11,7 +12,8 @@ class Post extends Model
         'title',
         'content',
         'slug',
-        'category_id'
+        'category_id',
+        'cover'
     ];
 
     public function category()
@@ -44,5 +46,10 @@ class Post extends Model
         }
 
         return $slug;
+    }
+
+    public function getCoverPathAttribute()
+    {
+        return Storage::disk('images')->url($this->cover);
     }
 }
