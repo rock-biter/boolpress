@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Mail\SendPostCreatedMail;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -67,6 +69,8 @@ class PostController extends Controller
             // dd($tags);
             $post->tags()->sync($tags);
         }
+
+        Mail::to('ciccio.pasticcio@gmail.com')->send(new SendPostCreatedMail($post));
 
         return redirect()->route('admin.posts.show', $post);
     }
