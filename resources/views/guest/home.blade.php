@@ -14,13 +14,22 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
-    <script>
-      const loginRoute = "{{ route('login') }}"
+    
 
-      console.log(loginRoute)
-    </script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          container: {
+            center: true,
+          }
+        }
+      }
+    }
+  </script>
 </head>
 <body>
 
