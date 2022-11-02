@@ -22,3 +22,4 @@ use Illuminate\Support\Facades\Route;
 Route::resource('posts', 'Api\PostController')->only(['index', 'show']);
 // /api/posts -> Api\PostController@index
 // /api/posts/{post} -> Api\PostController@show
+Route::post('/leads', 'Api\LeadController@store');

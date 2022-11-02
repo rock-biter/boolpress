@@ -7,15 +7,19 @@
     </section>
     <section>
       <div class="container">
-        form di contatti
+        <LeadForm />
       </div>
     </section>
   </div>
 </template>
 
 <script>
+
+import LeadForm from '../components/LeadForm.vue';
   export default {
-    
+    components: {
+      LeadForm
+    }
   }
 </script>
 

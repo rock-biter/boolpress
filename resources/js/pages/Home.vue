@@ -1,11 +1,14 @@
 <template>
   <div>
-    <section>
-      <div class="container">
-        <h1>{{ title }}</h1>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque, quaerat!</p>
-      </div>
-    </section>
+
+    
+      <section>
+        <div class="container">
+          <h1>{{ title }}</h1>
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque, quaerat!</p>
+        </div>
+      </section>
+    
   </div>
 </template>
 
@@ -13,9 +16,10 @@
   export default {
     data() {
       return {
-        title: 'Home page'
+        title: 'Home page',
       }
-    }
+    },
+    
   }
 </script>
 
