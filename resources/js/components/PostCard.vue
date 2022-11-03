@@ -1,21 +1,39 @@
 <template>
-  <article class="relative rounded-lg overflow-hidden">
-    <img v-if="post.cover" :src="post.cover_path" alt="">
+  <Card class="h-full">
+    <template v-slot:header>
+      <div v-if="post.cover" class="aspect-video bg-stone-200">
+        <img class="h-full w-full object-fit object-center"
+          :src="post.cover_path" alt="" />
+      </div>
+    </template>
+  
+    <article class="relative">
+      
+      <div class="p-4 mt-2">
+        <h3 class="text-xl">{{ post.title }}</h3>
+        <p v-if="post.category" class="text-amber-600 text-sm my-1">{{ post.category.name }}</p>
+        <Tags :tags="post.tags" />
+        
+      </div>
 
-    <div class="p-4 mt-2">
-      <h3 class="text-xl">{{ post.title }}</h3>
-      <p v-if="post.category" class="text-amber-600 text-sm my-1">{{ post.category.name }}</p>
-      <ul class="flex gap-4 py-3">
-        <li class="rounded-full hover:bg-amber-400 bg-gray-200 px-2 py-1 text-xs" v-for="tag in post.tags" :key="tag.id">{{ tag.name }}</li>
-      </ul>
-      <p class="text-sm">{{ post.date }}</p>
-    </div>
+    </article>
 
-  </article>
+    <template v-slot:footer>
+      <div class="flex justify-end">
+        <p class="text-sm">{{ post.date }}</p>
+      </div>
+    </template>
+  </Card>
 </template>
 
 <script>
+import Tags from './Tags.vue';
+import Card from './Card.vue';
   export default {
+    components: {
+      Tags,
+      Card,
+    },
     props: {
       post: {
         type: Object,

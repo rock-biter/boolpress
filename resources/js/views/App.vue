@@ -1,15 +1,14 @@
 <template>
-  <div>
-    <Nav />
+  <Layout>
     <router-view></router-view>
-  </div>
+  </Layout>
 </template>
 
 <script>
-import Nav from '../components/Nav.vue'
+  import Layout from '../layouts/Default.vue'
   export default {
     components: {
-      Nav
+      Layout
     },
   }
 </script>

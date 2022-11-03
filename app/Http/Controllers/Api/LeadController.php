@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Post;
+use App\Lead;
+use App\Mail\NewLead;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
-class PostController extends Controller
+class LeadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $result = Post::orderBy('created_at', 'desc')->with('category', 'tags', 'category.posts')->paginate(12);
-        $success = true;
-
-        return response()->json(compact('result', 'success'));
+        //
     }
 
     /**
@@ -29,7 +29,35 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'name' => 'required|max:255',
+            'email' => 'required|max:255|email',
+            'message' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        $lead = Lead::create($data);
+
+        // invio mail ad admin
+        Mail::to('info@boolpress.it')->send(new NewLead($lead));
+
+        // invio mail di conferma ad utente
+        // Mail::to($lead->email)->send(new NewLeadConfirmation())
+
+
+        return response()->json([
+            'success' => true,
+            'lead' => $lead
+        ]);
     }
 
     /**
@@ -38,20 +66,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        $post = Post::where('slug', $slug)->with('category', 'tags')->first();
-
-        if ($post) {
-            return response()->json([
-                'post' => $post,
-                'success' => true
-            ]);
-        } else {
-            return response()->json([
-                'success' => false
-            ], 404);
-        }
+        //
     }
 
     /**
