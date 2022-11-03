@@ -15,13 +15,13 @@
       matchLayout() {
         const layout = this.$route.meta.layout
 
-switch(layout) {
-  case 'sidebar': 
-    this.layout = () => import('../layouts/Sidebar.vue')
-    break
-  default:
-    this.layout = () => import('../layouts/Layout.vue')
-}
+        switch(layout) {
+          case 'sidebar': 
+            this.layout = () => import('../layouts/Sidebar.vue')
+            break
+          default:
+            this.layout = () => import('../layouts/Layout.vue')
+        }
       }
     },
     watch: {
